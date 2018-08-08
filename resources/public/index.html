@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <title>NanoID CC</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Nano ID Collision Calculator</h1>
+      <h3>Description</h3>
+      <p><a href="https://github.com/ai/nanoid">NanoID</a> is a library for generating random IDs. Likewise UUID there is a probability that an ID will be duplicated. But this probability is extremely small.</p>
+      <p>Meanwhile there are many projects that generates IDs in small numbers. For those projects the ID length could be reduced without risk.</p>
+      <p>The aim of this calculator is to help you realize the extent to which the ID length can be reduced.</p>
+      <section id="calc">
+      </section>
+      <h3>Few Values to Feel the Scale</h3>
+      <ul>
+        <li>Human lifespan: 79 years.</li>
+        <li>Life in the Earth will be impossible in ~1.1 billion years.</li>
+        <li>Age of the Earth: ~4.543 billion years.</li>
+        <li>Age of the Universe: ~13.799 billion years.</li>
+      </ul>
+      <h3>Math Behind</h3>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Birthday_problem">Birthday problem</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions">Collisions</a></li>
+      </ul>
+    </div>
+    <script src="js/compiled/nano_id_cc.js" type="text/javascript"></script>
+    <script>
+      window.onload = function () {
+        nano_id_cc.core.init();
+      }
+    </script>
+  </body>
+</html>

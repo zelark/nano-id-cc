@@ -1,0 +1,204 @@
+/* Colors https://coolors.co/e7ecef-e84855-f9dc5c-386fa4-59a5d8 */
+body {
+  font-family: 'Fira Mono', monospace;
+  font-size: 13pt;
+  background: #386FA4;
+  color: #E7ECEF;
+}
+
+
+p {
+  margin-top: 1.0em;
+  line-height: 1.8em;
+}
+
+h3 {
+  margin-top: 1.4em;
+  margin-bottom: -0.2em;
+}
+
+
+div {
+  margin-top: 1.2em;
+  margin-bottom: 0em;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid #59A5D8;
+}
+
+a:hover {
+  border-bottom: 2px solid #F9DC5C;
+}
+
+
+input {
+  -webkit-text-fill-color: #F9DC5C; /* safari */
+  color: #F9DC5C;
+}
+
+textarea,
+input[type=number] {
+  font-family: inherit;
+  font-size: inherit;
+  color: #F9DC5C;
+  background: inherit;
+  border: 2px solid #59A5D8;
+  padding: 4px;
+}
+
+
+input[type=number] {
+  -moz-appearance: textfield;
+  text-align: right;
+  margin: 0 4px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+
+input[type=range] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  height: 3px;
+  background: #59A5D8;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0.9;
+  -webkit-transition: opacity .2s;
+  -o-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+input[type=range]::-moz-range-track {
+  background: #59A5D8;
+}
+
+input[type=range]:hover {
+  opacity: 1;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  width: 13px;
+  height: 19px;
+  background: #E84855;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 13px;
+  height: 19px;
+  background: #E84855;
+  cursor: pointer;
+  border-style: none;
+  border-radius: 0px;
+}
+
+input[type=range]::-moz-focus-outer {
+  border-style: none;
+}
+
+
+.switch input {
+  display: none;
+}
+
+.switch label {
+  display: inline-block;
+  color: inherit;
+  border-bottom: 1px dotted #E7ECEF;
+  opacity: 0.5;
+}
+
+.switch label:hover {
+	cursor: pointer;
+}
+
+.switch label.checked {
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  border-style: none;
+  color: inherit;
+  cursor: default;
+  opacity: 1;
+}
+
+
+ul {
+  line-height: 1.8em;
+}
+
+
+.separator {
+  margin: 1.5em auto;
+  display: block;
+  width: 30%;
+  border-bottom: 1px solid #59A5D8;
+  opacity: 0.4;
+}
+
+
+#app {
+  width: 700px;
+  margin: 2em auto;
+}
+
+
+#alphabet {
+  margin-top: 2px;
+  width: 688px;
+  resize: none;
+}
+
+
+#counter {
+  font-size: 0.7em;
+  float: right;
+}
+
+
+#speed {
+  width: 5em;
+}
+
+
+#result {
+  color: #F9DC5C;
+}
+
+
+#length {
+  width: 1.8em;
+}
+
+
+@media screen and (max-width: 768px) {
+  #app {
+    width: 500px;
+  }
+
+  #alphabet {
+    width: 488px;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  #app {
+    width: 400px;
+  }
+
+  #alphabet {
+    width: 388px;
+  }
+}
