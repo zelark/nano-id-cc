@@ -35,7 +35,7 @@
       { :rows        "4"
         :cols        "64"
         :spellCheck  false
-        :style       (when bad? {:border-color "#E84855"})
+        :style       (when bad? {:border-color "#C3423F"})
         :value       val
         :on-change   #(when (<= (count (.. % -target -value)) 256)
                         (db/put :alphabet (.. % -target -value))) }]
@@ -75,7 +75,7 @@
      [:input#speed 
       { :type      :number
         :value     val
-        :style     (when bad? {:border-color "#E84855"})
+        :style     (when bad? {:border-color "#C3423F"})
         :on-change #(db/put :speed (int (.. % -target -value))) }]
      "IDs per "
      [:span.switch
@@ -91,7 +91,7 @@
         number-ids  (calc/critical-number random-bits 0.01)
         time        (calc/time-to-collision number-ids speed)]
     [:p
-     [:span#result (format-time time)]
+     [:span#result [:em (format-time time)]]
      " needed, in order to have a 1% probability of at least one collision."]))
 
 

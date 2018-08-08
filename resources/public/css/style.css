@@ -2,10 +2,16 @@
 body {
   font-family: 'Fira Mono', monospace;
   font-size: 13pt;
-  background: #386FA4;
-  color: #E7ECEF;
+  background: #F7F7F7;
+  color: #000000;
 }
 
+em {
+  background-color: #C8FD70;
+  color: inherit;
+  font-style: normal;
+  padding: 0 2px;
+}
 
 p {
   margin-top: 1.0em;
@@ -27,32 +33,28 @@ div {
 a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 2px solid #59A5D8;
+  border-bottom: 2px solid #93B7BE;
 }
 
 a:hover {
-  border-bottom: 2px solid #F9DC5C;
-}
-
-
-input {
-  -webkit-text-fill-color: #F9DC5C; /* safari */
-  color: #F9DC5C;
+  border-bottom: 2px solid #C3423F;
 }
 
 textarea,
 input[type=number] {
   font-family: inherit;
   font-size: inherit;
-  color: #F9DC5C;
-  background: inherit;
-  border: 2px solid #59A5D8;
+  color: inherit;
+  background: rgba(199, 253, 112, 0.33);
+  border: 2px solid #93B7BE;
+  border-radius: 6px;
   padding: 4px;
 }
 
 
 input[type=number] {
   -moz-appearance: textfield;
+  -webkit-text-fill-color: inherit;
   text-align: right;
   margin: 0 4px;
 }
@@ -68,7 +70,7 @@ input[type=range] {
           appearance: none;
   width: 100%;
   height: 3px;
-  background: #59A5D8;
+  background: #93B7BE;
   outline: none;
   margin: 0;
   padding: 0;
@@ -79,7 +81,7 @@ input[type=range] {
 }
 
 input[type=range]::-moz-range-track {
-  background: #59A5D8;
+  background: #93B7BE;
 }
 
 input[type=range]:hover {
@@ -87,20 +89,21 @@ input[type=range]:hover {
 }
 
 input[type=range]::-webkit-slider-thumb {
-  width: 13px;
-  height: 19px;
-  background: #E84855;
+  width: 17px;
+  height: 17px;
+  background: #C3423F;
   cursor: pointer;
+  border-radius: 50%;
   -webkit-appearance: none;
 }
 
 input[type=range]::-moz-range-thumb {
-  width: 13px;
-  height: 19px;
-  background: #E84855;
+  width: 17px;
+  height: 17px;
+  background: #C3423F;
   cursor: pointer;
+  border-radius: 50%;
   border-style: none;
-  border-radius: 0px;
 }
 
 input[type=range]::-moz-focus-outer {
@@ -115,7 +118,7 @@ input[type=range]::-moz-focus-outer {
 .switch label {
   display: inline-block;
   color: inherit;
-  border-bottom: 1px dotted #E7ECEF;
+  border-bottom: 1px dotted #000000;
   opacity: 0.5;
 }
 
@@ -139,15 +142,6 @@ ul {
 }
 
 
-.separator {
-  margin: 1.5em auto;
-  display: block;
-  width: 30%;
-  border-bottom: 1px solid #59A5D8;
-  opacity: 0.4;
-}
-
-
 #app {
   width: 700px;
   margin: 2em auto;
@@ -164,16 +158,12 @@ ul {
 #counter {
   font-size: 0.7em;
   float: right;
+  color: #93B7BE;
 }
 
 
 #speed {
   width: 5em;
-}
-
-
-#result {
-  color: #F9DC5C;
 }
 
 
