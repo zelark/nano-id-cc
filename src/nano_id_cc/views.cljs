@@ -90,7 +90,7 @@
         random-bits (calc/random-bits (count alphabet) length)
         number-ids  (calc/critical-number random-bits 0.01)
         time        (calc/time-to-collision number-ids speed)]
-    [:div
+    [:p
      [:span#result (format-time time)]
      " needed, in order to have a 1% probability of at least one collision."]))
 
