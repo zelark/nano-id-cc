@@ -156,7 +156,7 @@ ul {
 
 #alphabet {
   margin-top: 2px;
-  width: 688px;
+  width: calc(100% - 12px);
   resize: none;
 }
 
@@ -184,21 +184,28 @@ ul {
 
 @media screen and (max-width: 768px) {
   #app {
-    width: 500px;
-  }
-
-  #alphabet {
-    width: 488px;
+    width: 568px;
   }
 }
 
 
 @media screen and (max-width: 480px) {
-  #app {
-    width: 400px;
+  body {
+    font-size: 12pt;
   }
 
-  #alphabet {
-    width: 388px;
+  #app {
+    width: 380px;
+  }
+}
+
+
+@media screen and (max-width: 375px) {
+  body {
+    font-size: 11pt;
+  }
+
+  #app {
+    width: 340px;
   }
 }
