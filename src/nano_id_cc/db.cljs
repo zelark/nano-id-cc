@@ -1,16 +1,13 @@
 (ns nano-id-cc.db
-    (:require [reagent.core :as reagent]))
+    (:require [reagent.core :as reagent]
+              [nano-id-cc.default :as default]))
 
 
-(def ^:const alphabet
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~")
-
-
-(defonce app-db 
+(defonce app-db
   (reagent/atom { :unit     :hour
                   :speed    1000
-                  :length   21
-                  :alphabet alphabet }))
+                  :length   default/length
+                  :alphabet default/alphabet }))
 
 
 (defn put [key val]

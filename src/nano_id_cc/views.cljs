@@ -1,6 +1,7 @@
 (ns nano-id-cc.views
-  (:require [nano-id-cc.calc :as calc]
-            [nano-id-cc.db :as db]))
+  (:require [nano-id-cc.db :as db]
+            [nano-id-cc.calc :as calc]
+            [nano-id-cc.default :as default]))
 
 
 (def units [{ :unit 60     :text "seconds" },
@@ -25,7 +26,7 @@
         :else        (recur next rst)))))
 
 
-(defn alphabet []
+(defn alphabet-comp []
   (let [val  (:alphabet @db/app-db)
         len  (count val)
         bad? (or (< len 2) (not (apply distinct? val)))]
@@ -66,7 +67,7 @@
       :on-change #(db/put key value) }]])
 
 
-(defn speed []
+(defn speed-comp []
   (let [unit (:unit @db/app-db)
         val  (:speed @db/app-db)
         bad? (< val 1)]
@@ -95,10 +96,24 @@
      " needed, in order to have a 1% probability of at least one collision."]))
 
 
+(defn code-example [alphabet length]
+  (let [custom? (not= alphabet default/alphabet)
+        len     (when (not= length default/length) length)]
+    [:code (if (not custom?)
+             (str "var nanoid = require('nanoid');\n"
+                  "model.id = nanoid(" len ");\n")
+             (str "var nanoid = require('nanoid/generate');\n"
+                  "var alphabet = '" alphabet "';\n"
+                  "model.id = generate(alphabet, " length ");\n"))]))
+
+
 (defn calc []
-  [:div
-   [:h3 "Calculator"]
-   [alphabet]
-   [id-length]
-   [speed]
-   [result]])
+  (let [{:keys [alphabet length speed unit]} @db/app-db]
+    [:div
+     [:h3 "Calculator"]
+     [alphabet-comp]
+     [id-length]
+     [speed-comp]
+     [result]
+     [:h3 "Code sample"]
+     [code-example alphabet length]]))

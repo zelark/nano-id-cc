@@ -14,6 +14,20 @@ em {
 }
 
 
+code {
+  display: block;
+  font-family: inherit;
+  font-size: 0.9em;
+  line-height: 1.6em;
+  margin: 1em 0;
+  padding: 4px;
+  border: 2px dotted #93B7BE;
+  border-radius: 6px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+
 p {
   margin-top: 1.0em;
   line-height: 1.8em;
