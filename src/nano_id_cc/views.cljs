@@ -1,7 +1,11 @@
 (ns nano-id-cc.views
-  (:require [nano-id-cc.db :as db]
+  (:require [nano-id.custom]
+            [nano-id-cc.db :as db]
             [nano-id-cc.calc :as calc]
-            [nano-id-cc.defaults :as defaults]))
+            [nano-id-cc.defaults :as defaults]
+            [reagent.core :as reagent]
+            [cljsjs.highlight]
+            [cljsjs.highlight.langs.javascript]))
 
 
 (def units [{ :unit 60     :text "seconds" },
@@ -92,15 +96,28 @@
      " needed, in order to have a 1% probability of at least one collision."]))
 
 
+(defn highlight-code [_]
+  (let [code (.getElementById js/document "code-sample")]
+    (.highlightBlock js/hljs code)))
+
+
 (defn code-example [alphabet length]
-  (let [custom? (not= alphabet defaults/alphabet)
-        len     (when (not= length defaults/length) length)]
-    [:code (if (not custom?)
-             (str "var nanoid = require('nanoid');\n"
-                  "model.id = nanoid(" len ");\n")
-             (str "var nanoid = require('nanoid/generate');\n"
+  (reagent/create-class
+    {:component-did-update highlight-code
+     :component-did-mount  highlight-code
+     :reagent-render
+     (fn [alphabet length]
+       (let [custom? (not= alphabet defaults/alphabet)
+             len     (when (not= length defaults/length) length)
+             nano-id (nano-id.custom/generate alphabet)
+             id      (nano-id length)]
+         [:code#code-sample
+          (if (not custom?)
+            (str "var nanoid = require('nanoid');\n"
+                  "nanoid(" len "); //=> \"" id "\"")
+            (str "var nanoid = require('nanoid/generate');\n"
                   "var alphabet = '" alphabet "';\n"
-                  "model.id = generate(alphabet, " length ");\n"))]))
+                  "generate(alphabet, " length "); //=> \"" id "\""))])) }))
 
 
 (defn calc []
