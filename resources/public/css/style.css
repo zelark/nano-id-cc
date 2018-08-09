@@ -199,3 +199,14 @@ ul {
     width: 340px;
   }
 }
+
+
+@media screen and (max-width: 320px) {
+  body {
+    font-size: 10pt;
+  }
+
+  #app {
+    width: 300px;
+  }
+}
