@@ -1,10 +1,10 @@
-/* Colors https://coolors.co/e7ecef-e84855-f9dc5c-386fa4-59a5d8 */
 body {
   font-family: 'Fira Mono', monospace;
   font-size: 13pt;
   background: #F7F7F7;
   color: #000000;
 }
+
 
 em {
   background-color: #C8FD70;
@@ -13,10 +13,12 @@ em {
   padding: 0 2px;
 }
 
+
 p {
   margin-top: 1.0em;
   line-height: 1.8em;
 }
+
 
 h3 {
   margin-top: 1.4em;
@@ -39,6 +41,12 @@ a {
 a:hover {
   border-bottom: 2px solid #C3423F;
 }
+
+
+ul {
+  line-height: 1.8em;
+}
+
 
 textarea,
 input[type=number] {
@@ -134,11 +142,6 @@ input[type=range]::-moz-focus-outer {
   color: inherit;
   cursor: default;
   opacity: 1;
-}
-
-
-ul {
-  line-height: 1.8em;
 }
 
 
