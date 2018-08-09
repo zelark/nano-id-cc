@@ -1,4 +1,4 @@
-(ns nano-id-cc.default)
+(ns nano-id-cc.defaults)
 
 
 (def ^:const alphabet

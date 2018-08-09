@@ -1,7 +1,7 @@
 (ns nano-id-cc.views
   (:require [nano-id-cc.db :as db]
             [nano-id-cc.calc :as calc]
-            [nano-id-cc.default :as default]))
+            [nano-id-cc.defaults :as defaults]))
 
 
 (def units [{ :unit 60     :text "seconds" },
@@ -93,8 +93,8 @@
 
 
 (defn code-example [alphabet length]
-  (let [custom? (not= alphabet default/alphabet)
-        len     (when (not= length default/length) length)]
+  (let [custom? (not= alphabet defaults/alphabet)
+        len     (when (not= length defaults/length) length)]
     [:code (if (not custom?)
              (str "var nanoid = require('nanoid');\n"
                   "model.id = nanoid(" len ");\n")
