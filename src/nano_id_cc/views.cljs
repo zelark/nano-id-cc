@@ -26,10 +26,9 @@
         :else        (recur next rst)))))
 
 
-(defn alphabet-comp []
-  (let [val  (:alphabet @db/app-db)
-        len  (count val)
-        bad? (or (< len 2) (not (apply distinct? val)))]
+(defn alphabet-comp [alphabet]
+  (let [len  (count alphabet)
+        bad? (or (< len 2) (not (apply distinct? alphabet)))]
     [:div  
      [:label { :for :alphabet } "Alphabet:"]
      [:textarea#alphabet
@@ -37,24 +36,23 @@
         :cols        "64"
         :spellCheck  false
         :class       (when bad? "spoiled")
-        :value       val
+        :value       alphabet
         :on-change   #(when (<= (count (.. % -target -value)) 256)
                         (db/put :alphabet (.. % -target -value))) }]
      [:span#counter len "/256"]]))
 
 
-(defn id-length []
-  (let [length (:length @db/app-db)]
-    [:div
-     "ID length:"
-     [:input#length { :disabled true, :type "number" :value length }]
-     "characters"
-     [:input#length-slider.slider
-      { :min       "2"
-        :max       "128"
-        :type      :range
-        :value     length 
-        :on-change #(db/put :length (int (.. % -target -value))) }]]))
+(defn id-length [length]
+  [:div
+   "ID length:"
+   [:input#length { :disabled true, :type "number" :value length }]
+   "characters"
+   [:input#length-slider.slider
+    { :min       "2"
+      :max       "128"
+      :type      :range
+      :value     length
+      :on-change #(db/put :length (int (.. % -target -value))) }]])
 
 
 (defn radio [key value checked?]
@@ -67,15 +65,13 @@
       :on-change #(db/put key value) }]])
 
 
-(defn speed-comp []
-  (let [unit (:unit @db/app-db)
-        val  (:speed @db/app-db)
-        bad? (< val 1)]
+(defn speed-comp [speed unit]
+  (let [bad? (< speed 1)]
     [:div
      "Speed:"
      [:input#speed 
       { :type      :number
-        :value     val
+        :value     speed
         :class     (when bad? "spoiled")
         :on-change #(db/put :speed (int (.. % -target -value))) }]
      "IDs per "
@@ -111,9 +107,9 @@
   (let [{:keys [alphabet length speed unit]} @db/app-db]
     [:div
      [:h3 "Calculator"]
-     [alphabet-comp]
-     [id-length]
-     [speed-comp]
+     [alphabet-comp alphabet]
+     [id-length length]
+     [speed-comp speed unit]
      [result]
      [:h3 "Code sample"]
      [code-example alphabet length]]))
