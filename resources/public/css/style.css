@@ -119,6 +119,12 @@ input[type=range]::-moz-focus-outer {
 }
 
 
+.spoiled {
+  border: 2px solid #C3423F !important;
+  color: #C3423F !important;
+}
+
+
 .switch input {
   display: none;
 }

@@ -35,7 +35,7 @@
       { :rows        "4"
         :cols        "64"
         :spellCheck  false
-        :style       (when bad? {:border-color "#C3423F"})
+        :class       (when bad? "spoiled")
         :value       val
         :on-change   #(when (<= (count (.. % -target -value)) 256)
                         (db/put :alphabet (.. % -target -value))) }]
@@ -75,7 +75,7 @@
      [:input#speed 
       { :type      :number
         :value     val
-        :style     (when bad? {:border-color "#C3423F"})
+        :class     (when bad? "spoiled")
         :on-change #(db/put :speed (int (.. % -target -value))) }]
      "IDs per "
      [:span.switch
