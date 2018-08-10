@@ -38,7 +38,7 @@
 (defn alphabet-comp [alphabet]
   (let [len  (count alphabet)
         bad? (or (< len 2) (not (apply distinct? alphabet)))]
-    [:div  
+    [:div.calc-input
      [:label { :for :alphabet } "Alphabet:"]
      [:textarea#alphabet
       { :rows        "4"
@@ -52,7 +52,7 @@
 
 
 (defn id-length [length]
-  [:div
+  [:div.calc-input
    "ID length:"
    [:input#length { :disabled true, :type "number" :value length }]
    "characters"
@@ -76,7 +76,7 @@
 
 (defn speed-comp [speed unit]
   (let [bad? (< speed 1)]
-    [:div
+    [:div.calc-input
      "Speed:"
      [:input#speed 
       { :type      :number
@@ -128,7 +128,7 @@
 (defn calc []
   (let [{:keys [alphabet length speed unit]} @db/app-db]
     [:div
-     [:h3 "Calculator"]
+     [:h2 "Calculator"]
      [alphabet-comp alphabet]
      [id-length length]
      [speed-comp speed unit]

@@ -9,7 +9,7 @@
 
 
   :dependencies [[org.clojure/clojure       "1.9.0"]
-                 [org.clojure/clojurescript "1.10.238"]
+                 [org.clojure/clojurescript "1.10.339"]
                  [cljsjs/highlight          "9.12.0-2"]
                  [reagent                   "0.8.1"]
                  [nano-id                   "0.9.3"]]

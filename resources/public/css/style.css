@@ -1,5 +1,5 @@
 body {
-  font-family: 'Fira Mono', monospace;
+  font-family: 'Fira Mono', Menlo, monospace;
   font-size: 13pt;
   background: #F7F7F7;
   color: #000000;
@@ -34,15 +34,16 @@ p {
 }
 
 
-h3 {
-  margin-top: 1.4em;
-  margin-bottom: -0.2em;
+h1 {
+  margin: 0 auto;
+  line-height: 1.4em;
 }
 
 
-div {
+h2
+h3, {
   margin-top: 1.2em;
-  margin-bottom: 0em;
+  margin-bottom: -0.2em;
 }
 
 
@@ -133,6 +134,17 @@ input[type=range]::-moz-focus-outer {
 }
 
 
+div.calc-input {
+  margin-top: 1.2em;
+  margin-bottom: 0em;
+}
+
+
+img.logo {
+  float: left;
+}
+
+
 .spoiled {
   border: 2px solid #C3423F !important;
   color: #C3423F !important;
@@ -166,8 +178,11 @@ input[type=range]::-moz-focus-outer {
 
 
 #app {
-  width: 700px;
+  max-width: 700px;
+  width: 96%;
   margin: 2em auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
 }
 
 
@@ -185,6 +200,27 @@ input[type=range]::-moz-focus-outer {
 }
 
 
+#header-with-txt-logo {
+  grid-column: span 12;
+  display: none;
+}
+
+
+#header {
+  grid-column: span 8;
+}
+
+
+#header-logo {
+  grid-column: span 4;
+}
+
+
+#main-content {
+  grid-column: span 12;
+}
+
+
 #speed {
   width: 5em;
 }
@@ -196,8 +232,8 @@ input[type=range]::-moz-focus-outer {
 
 
 @media screen and (max-width: 768px) {
-  #app {
-    width: 568px;
+  body {
+    font-size: 13pt;
   }
 }
 
@@ -207,19 +243,16 @@ input[type=range]::-moz-focus-outer {
     font-size: 12pt;
   }
 
-  #app {
-    width: 380px;
-  }
-}
-
-
-@media screen and (max-width: 375px) {
-  body {
-    font-size: 11pt;
+  #header-with-txt-logo {
+    display: block;
   }
 
-  #app {
-    width: 340px;
+  #header {
+    display: none;
+  }
+
+  #header-logo {
+    display: none;
   }
 }
 
@@ -227,10 +260,6 @@ input[type=range]::-moz-focus-outer {
 @media screen and (max-width: 320px) {
   body {
     font-size: 10pt;
-  }
-
-  #app {
-    width: 300px;
   }
 }
 
