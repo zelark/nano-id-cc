@@ -8,25 +8,30 @@
             [cljsjs.highlight.langs.javascript]))
 
 
-(def units [{ :unit 60     :text "seconds" },
-            { :unit 60     :text "minutes" },
-            { :unit 24     :text "hours" },
-            { :unit 365.26 :text "days" },
-            { :unit 1000   :text "years" },
-            { :unit 1000   :text "thousand years" },
-            { :unit 1000   :text "million years" },
-            { :unit 1000   :text "billion years" },
-            { :unit 1000   :text "trillion years" },
-            { :unit 1000   :text "More than 1 quadrillion years" }])
+(def units [{ :num 60      :as-is? false  :ending "second"                        },
+            { :num 60      :as-is? false  :ending "minute"                        },
+            { :num 24      :as-is? false  :ending "hour"                          },
+            { :num 365.26  :as-is? false  :ending "day"                           },
+            { :num 1000    :as-is? false  :ending "year"                          },
+            { :num 1000    :as-is? true   :ending "thousand years"                },
+            { :num 1000    :as-is? true   :ending "million years"                 },
+            { :num 1000    :as-is? true   :ending "billion years"                 },
+            { :num 1000    :as-is? true   :ending "trillion years"                },
+            { :num 1000    :as-is? true   :ending "More than 1 quadrillion years" }])
+
+
+(defn- pluralize [n word]
+  (if (== n 1) word (str word "s")))
 
 
 (defn- format-time [time]
   (loop [current time
-         [{:keys [unit text]} & rst] units]
-    (let [next (/ current unit)]
+         [{:keys [num ending as-is?]} & rst] units]
+    (let [next (/ current num)]
       (cond
-        (empty? rst) text
-        (< next 1)   (str "~" (Math/round current) " " text)
+        (empty? rst) ending
+        (< next 1)   (let [n (Math/round current)]
+                       (str "~" n " " (if as-is? ending (pluralize n ending))))
         :else        (recur next rst)))))
 
 
