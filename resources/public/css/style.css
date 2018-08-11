@@ -159,6 +159,11 @@ img.logo {
 }
 
 
+img.boom {
+  width: 100%;
+}
+
+
 .spoiled {
   border: 2px solid #C3423F !important;
   color: #C3423F !important;

@@ -152,8 +152,12 @@
     (fn [key atom old-state new-state]
       (when (or (not= (:alphabet old-state) (:alphabet new-state))
                 (not= (:length old-state)   (:length new-state)))
-        (set! (.-textContent elements/code-sample)
-              (code-sample new-state))
-        (highlight-code))))
+        (let [boom? (< (count (:alphabet new-state)) 2)]
+          (if boom?
+            (set! (.-innerHTML elements/code-sample)
+                  "<img class=\"boom\" src=\"boom.jpg\" alt=\"BOOM!!!\">")
+            (set! (.-innerHTML elements/code-sample)
+                  (code-sample new-state)))
+          (highlight-code)))))
 
   (db/reset))
