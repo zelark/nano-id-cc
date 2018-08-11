@@ -1,13 +1,15 @@
 (ns nano-id-cc.db
-    (:require [reagent.core :as reagent]
-              [nano-id-cc.defaults :as defaults]))
+    (:require [nano-id-cc.defaults :as defaults]))
 
 
-(defonce app-db
-  (reagent/atom { :unit     :hour
-                  :speed    1000
-                  :length   defaults/length
-                  :alphabet defaults/alphabet }))
+(defonce app-db (atom {}))
+
+
+(defn reset []
+  (reset! app-db { :unit     "hour"
+                   :speed    1000
+                   :length   defaults/length
+                   :alphabet defaults/alphabet }))
 
 
 (defn put [key val]

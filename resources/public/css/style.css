@@ -180,7 +180,7 @@ img.logo {
 	cursor: pointer;
 }
 
-.switch label.checked {
+.switch input:checked + label {
   -webkit-transition: all 0.1s linear;
   -moz-transition: all 0.1s linear;
   transition: all 0.1s linear;

@@ -11,7 +11,6 @@
   :dependencies [[org.clojure/clojure       "1.9.0"]
                  [org.clojure/clojurescript "1.10.339"]
                  [cljsjs/highlight          "9.12.0-2"]
-                 [reagent                   "0.8.1"]
                  [nano-id                   "0.9.3"]]
 
 
@@ -25,8 +24,7 @@
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src"]
-                :figwheel {:on-jsload "nano-id-cc.core/on-js-reload"
-                           :open-urls ["http://localhost:3449/index.html"]}
+                :figwheel {:open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler {:main nano-id-cc.core
                            :asset-path "js/compiled/out"

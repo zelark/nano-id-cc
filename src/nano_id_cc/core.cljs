@@ -1,15 +1,159 @@
 (ns nano-id-cc.core
-    (:require [reagent.core :as reagent]
-              [nano-id-cc.views :as views]))
+  (:require [nano-id.custom]
+            [nano-id-cc.db :as db]
+            [nano-id-cc.calc :as calc]
+            [nano-id-cc.elements :as elements]
+            [nano-id-cc.defaults :as defaults]
+            [cljsjs.highlight]
+            [cljsjs.highlight.langs.javascript]))
 
 
 (enable-console-print!)
 
 
-(defn on-js-reload []
-  (reagent/render-component [views/calc]
-                            (.getElementById js/document "calc")))
+(def units [{ :num 60      :as-is? false  :ending "second"                        },
+            { :num 60      :as-is? false  :ending "minute"                        },
+            { :num 24      :as-is? false  :ending "hour"                          },
+            { :num 365.26  :as-is? false  :ending "day"                           },
+            { :num 1000    :as-is? false  :ending "year"                          },
+            { :num 1000    :as-is? true   :ending "thousand years"                },
+            { :num 1000    :as-is? true   :ending "million years"                 },
+            { :num 1000    :as-is? true   :ending "billion years"                 },
+            { :num 1000    :as-is? true   :ending "trillion years"                },
+            { :num 1000    :as-is? true   :ending "More than 1 quadrillion years" }])
+
+
+(defn pluralize [n word]
+  (if (== n 1) word (str word "s")))
+
+
+(defn format-time [time]
+  (loop [current time
+         [{:keys [num ending as-is?]} & rst] units]
+    (let [next (/ current num)]
+      (cond
+        (empty? rst) ending
+        (< next 1)   (let [n (Math/round current)]
+                       (str "~" n " " (if as-is? ending (pluralize n ending))))
+        :else        (recur next rst)))))
+
+
+(defn result
+  [{:keys [alphabet length speed unit]}]
+  (let [speed       (if (= unit "hour") (/ speed 3600) speed)
+        random-bits (calc/random-bits (count alphabet) length)
+        probability 0.01
+        number-ids  (calc/critical-number random-bits probability)
+        time        (calc/time-to-collision number-ids speed)]
+    (str (format-time time))))
+
+
+(defn code-sample
+  [{:keys [alphabet length]}]
+  (let [custom? (not= alphabet defaults/alphabet)
+        len     (when (not= length defaults/length) length)
+        nano-id (nano-id.custom/generate alphabet)
+        id      (nano-id length)]
+    (if (not custom?)
+      (str "var nanoid = require('nanoid');\n"
+           "nanoid(" len "); //=> \"" id "\"")
+      (str "var nanoid = require('nanoid/generate');\n"
+           "var alphabet = '" alphabet "';\n"
+           "generate(alphabet, " length "); //=> \"" id "\""))))
+
+
+(defn highlight-code []
+  (let [code (.getElementById js/document "code-sample")]
+    (.highlightBlock js/hljs code)))
 
 
 (defn ^:export init []
-  (on-js-reload))
+  (.addEventListener
+    elements/alphabet
+    "input"
+    #(if (<= (count (.. % -target -value)) 256)
+       (db/put :alphabet (.. % -target -value))
+       (set! (.. % -target -value) (:alphabet @db/app-db))))
+
+  (.addEventListener
+    elements/slider
+    "input"
+    #(db/put :length (int (.. % -target -value))))
+
+  (.addEventListener
+    elements/speed
+    "input"
+    #(db/put :speed (int (.. % -target -value))))
+
+  (doseq [button elements/radio-buttons]
+    (.addEventListener
+      button
+      "change"
+      #(db/put :unit (.. % -target -value))))
+
+  (add-watch
+    db/app-db
+    :alphabet
+    (fn [key atom old-state new-state]
+      (when (not= (:alphabet old-state) (:alphabet new-state))
+        (let [alphabet   (:alphabet new-state)
+              len        (count alphabet)
+              bad?       (or (< len 2)
+                             (not (apply distinct? alphabet)))
+              class-list (.-classList elements/alphabet)]
+          (if bad? (.add    class-list "spoiled")
+                   (.remove class-list "spoiled"))
+          (set! (.-value elements/alphabet) alphabet)
+          (set! (.-textContent elements/counter)
+                (str len "/256"))))))
+
+  (add-watch
+    db/app-db
+    :length
+    (fn [key atom old-state new-state]
+      (let [length (:length new-state)]
+        (when (not= (:length old-state) length)
+          (set! (.-value elements/length) length)
+          (set! (.-value elements/slider) length)))))
+
+  (add-watch
+    db/app-db
+    :speed
+    (fn [key atom old-state new-state]
+      (when (not= (:speed old-state) (:speed new-state))
+        (let [speed      (:speed new-state)
+              bad?       (< speed 1)
+              class-list (.-classList elements/speed)]
+          (set! (.-value elements/speed) speed)
+          (if bad? (.add    class-list "spoiled")
+                   (.remove class-list "spoiled"))))))
+
+  (add-watch
+    db/app-db
+    :unit
+    (fn [key atom old-state new-state]
+      (let [unit (:unit new-state)]
+        (when (not= (:unit old-state) unit)
+          (doseq [button elements/radio-buttons]
+            (set! (.-checked button)
+                  (= (.-value button) unit)))))))
+
+  (add-watch
+    db/app-db
+    :result
+    (fn [key atom old-state new-state]
+      (when (not= old-state new-state))
+        (set! (.-textContent elements/result)
+              (result new-state))))
+
+  (add-watch
+    db/app-db
+    :code-sample
+    (fn [key atom old-state new-state]
+      (when (or (not= (:alphabet old-state) (:alphabet new-state))
+                (not= (:length old-state)   (:length new-state)))
+        (set! (.-textContent elements/code-sample)
+              (code-sample new-state))
+        (highlight-code))))
+
+  (db/reset))
