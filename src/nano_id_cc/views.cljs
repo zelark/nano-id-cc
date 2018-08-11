@@ -119,10 +119,10 @@
          [:code#code-sample
           (if (not custom?)
             (str "var nanoid = require('nanoid');\n"
-                  "nanoid(" len "); //=> \"" id "\"")
+                 "nanoid(" len "); //=> \"" id "\"")
             (str "var nanoid = require('nanoid/generate');\n"
-                  "var alphabet = '" alphabet "';\n"
-                  "generate(alphabet, " length "); //=> \"" id "\""))])) }))
+                 "var alphabet = '" alphabet "';\n"
+                 "generate(alphabet, " length "); //=> \"" id "\""))])) }))
 
 
 (defn calc []
