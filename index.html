@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
     <title>Nano ID CC</title>
   </head>
@@ -24,7 +24,29 @@
         <p><a href="https://github.com/ai/nanoid">Nano ID</a> is a library for generating random IDs. Likewise UUID there is a probability that an ID will be duplicated. But this probability is extremely small.</p>
         <p>Meanwhile there are many projects that generates IDs in small numbers. For those projects the ID length could be reduced without risk.</p>
         <p>The aim of this calculator is to help you realize the extent to which the ID length can be reduced.</p>
-        <section id="calc"></section>
+        <div id="calc">
+          <h2>Calculator</h2>
+          <div class="calc-input">
+            <label for="alphabet">Alphabet:</label>
+            <textarea id="alphabet" rows="4" cols="64" spellcheck="false"></textarea>
+            <span id="counter">0/256</span>
+          </div>
+          <div class="calc-input">ID length:<input id="length" type="number" disabled>characters
+            <input id="length-slider" min="2" max="128" type="range" class="slider">
+          </div>
+          <div class="calc-input">Speed:<input id="speed" type="number">IDs per
+            <span class="switch">
+              <input id="unit-hour" name="unit" type="radio" value="hour">
+              <label for="unit-hour" class="checked">hour</label><!--
+              --><span>/</span><!--
+              --><input id="unit-second" name="unit" type="radio" value="second"><!--
+              --><label for="unit-second">second</label>
+            </span>
+          </div>
+          <p><em id="result">...</em> needed, in order to have a 1% probability of at least one collision.</p>
+          <h3>Code sample</h3>
+          <code id="code-sample"></code>
+        </div>
         <h2>Few Values to Feel the Scale</h2>
         <ul>
           <li>Human lifespan: 79 years.</li>
