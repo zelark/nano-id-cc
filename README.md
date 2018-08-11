@@ -26,6 +26,6 @@ To create a production build run:
 
 ## Acknowledgments
 
-First of all, I would like to thank [Andrey Sitnik](https://github.com/ai) — he is a role model for other developers to look up to (but drinking). Second, thank [Alexey Komarov](https://github.com/alex7kom) — its version of the calculator pushed me to make my own one. And my special thanks to Artem Alalykin who helped me with the math.
+First of all, I would like to thank [Andrey Sitnik](https://github.com/ai) — he is a role model for other developers to look up to (but drinking). Second, thank [Alexey Komarov](https://github.com/alex7kom) — its version of the calculator pushed me to make my own one. And my special thanks to [Artem Alalykin](https://github.com/ArtyomAN) who helped me with the math.
 
 Also, thanks to all guys who helped me to review the interface.
