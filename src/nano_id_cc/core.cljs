@@ -55,10 +55,10 @@
         nano-id (nano-id.custom/generate alphabet)
         id      (nano-id length)]
     (if (not custom?)
-      (str "var nanoid = require('nanoid');\n"
+      (str "const nanoid = require('nanoid');\n"
            "nanoid(" len "); //=> \"" id "\"")
-      (str "var nanoid = require('nanoid/generate');\n"
-           "var alphabet = '" alphabet "';\n"
+      (str "const nanoid = require('nanoid/generate');\n"
+           "const alphabet = '" alphabet "';\n"
            "generate(alphabet, " length "); //=> \"" id "\""))))
 
 
