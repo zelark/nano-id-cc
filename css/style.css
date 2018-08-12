@@ -19,8 +19,9 @@ code {
   font-family: inherit;
   font-size: 0.95em;
   line-height: 1.6em;
+  max-width: 684px;
   margin: 1em 0;
-  padding: 4px;
+  padding: 6px;
   border: 2px dotted #93B7BE;
   border-radius: 6px;
   word-wrap: break-word;
@@ -298,7 +299,6 @@ img.boom {
 
 
 .hljs {
-  padding: 0.5em;
   background: #F7F7F7;
   color: #657b83;
 }
