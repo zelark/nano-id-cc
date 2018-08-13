@@ -160,4 +160,5 @@
                   (code-sample new-state)))
           (highlight-code)))))
 
-  (db/reset))
+  (db/reset)
+  (.focus elements/slider))
