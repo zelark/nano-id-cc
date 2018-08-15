@@ -19,7 +19,9 @@ code {
   font-family: inherit;
   font-size: 0.95em;
   line-height: 1.6em;
-  max-width: 684px;
+  box-sizing: border-box;
+  max-width: 700px;
+  width: 100%;
   margin: 1em 0;
   padding: 6px;
   border: 2px dotted #93B7BE;
@@ -81,6 +83,7 @@ textarea,
 input[type=number] {
   font-family: inherit;
   font-size: inherit;
+  box-sizing: border-box;
   color: inherit;
   background: rgba(199, 253, 112, 0.33);
   border: 2px solid #93B7BE;
@@ -207,7 +210,7 @@ img.boom {
 
 #alphabet {
   margin-top: 2px;
-  width: calc(100% - 12px);
+  width: 100%;
   resize: none;
 }
 
@@ -246,7 +249,7 @@ img.boom {
 
 
 #length {
-  width: 1.8em;
+  width: 2em;
 }
 
 
@@ -290,10 +293,6 @@ img.boom {
 @media screen and (max-width: 320px) {
   body {
     font-size: 10pt;
-  }
-
-  #speed {
-    width: 3em;
   }
 }
 
