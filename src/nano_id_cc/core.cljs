@@ -83,7 +83,12 @@
   (.addEventListener
     elements/speed
     "input"
-    #(db/put :speed (int (.. % -target -value))))
+    #(let [val (long (.. % -target -value))]
+       (if (or (js/isNaN val)
+               (> val  1000000000)
+               (< val -1000000000))
+         (set! (.. % -target -value) (:speed @db/app-db))
+         (db/put :speed val))))
 
   (doseq [button elements/radio-buttons]
     (.addEventListener
