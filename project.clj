@@ -14,8 +14,18 @@
                  [nano-id                   "0.9.3"]]
 
 
-  :plugins [[lein-figwheel  "0.5.16"]
-            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+  :plugins [[lein-figwheel       "0.5.16"]
+            [lein-cljsbuild      "1.1.7" :exclusions [[org.clojure/clojure]]]
+            [lein-asset-minifier "0.4.4" :exclusions [[org.clojure/clojure]]]]
+
+
+  :minify-assets [[:css {:source "resources/public/css/style.css"
+                         :target "resources/public/css/style.min.css"}]]
+
+
+  :aliases {"build" ["do" ["clean"]
+                          ["minify-assets"]
+                          ["cljsbuild" "once" "min"]]}
 
 
   :source-paths ["src"]
@@ -49,4 +59,5 @@
                    :source-paths ["src" "dev"]
                    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
                    :clean-targets ^{:protect false} ["resources/public/js/compiled"
+                                                     "resources/public/css/style.min.css"
                                                      :target-path]}})
