@@ -311,6 +311,7 @@ img.boom {
 }
 
 /* Solarized Cyan */
+.hljs-number,
 .hljs-string {
   color: #2aa198;
 }
