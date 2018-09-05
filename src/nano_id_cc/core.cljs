@@ -57,7 +57,7 @@
     (if (not custom?)
       (str "const nanoid = require('nanoid');\n"
            "nanoid(" len "); //=> \"" id "\"")
-      (str "const nanoid = require('nanoid/generate');\n"
+      (str "const generate = require('nanoid/generate');\n"
            "const alphabet = '" alphabet "';\n"
            "generate(alphabet, " length "); //=> \"" id "\""))))
 
