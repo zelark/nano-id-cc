@@ -40,7 +40,8 @@
 
 (defn result
   [{:keys [alphabet length speed unit]}]
-  (let [speed       (if (= unit "hour") (/ speed 3600) speed)
+  (let [alphabet    (distinct alphabet)
+        speed       (if (= unit "hour") (/ speed 3600) speed)
         random-bits (calc/random-bits (count alphabet) length)
         probability 0.01
         number-ids  (calc/critical-number random-bits probability)
