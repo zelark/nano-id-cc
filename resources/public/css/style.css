@@ -214,6 +214,16 @@ img.boom {
   resize: none;
 }
 
+#copy-output{
+  font-family: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+  color: inherit;
+  background: rgba(199,253,112,0.33);
+  border: 2px solid #93b7be;
+  border-radius: 6px;
+  padding: 4px;
+}
 
 #counter {
   font-size: 0.7em;
