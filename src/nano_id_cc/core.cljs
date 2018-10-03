@@ -4,7 +4,7 @@
             [nano-id-cc.calc :as calc]
             [nano-id-cc.elements :as elements]
             [nano-id-cc.defaults :as defaults]
-            [clojure.string :as st]
+            [clojure.string :as string]
             [cljsjs.highlight]
             [cljsjs.highlight.langs.javascript]))
 
@@ -50,10 +50,7 @@
     (str (format-time time))))
 
 
-(defn escape
-  [s]
-  (st/escape s {\' "\\'"
-                \" "\\\""}))
+(defn escape [s] (string/escape s {\' "\\'"}))
 
 
 (defn code-sample
@@ -61,7 +58,7 @@
   (let [custom? (not= alphabet defaults/alphabet)
         len     (when (not= length defaults/length) length)
         nano-id (nano-id.custom/generate alphabet)
-        id      (escape (nano-id length))]
+        id      (nano-id length)]
     (if (not custom?)
       (str "const nanoid = require('nanoid');\n"
            "nanoid(" len "); //=> \"" id "\"")
