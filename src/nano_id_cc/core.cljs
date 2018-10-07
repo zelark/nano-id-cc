@@ -50,7 +50,9 @@
     (str (format-time time))))
 
 
-(defn escape [s] (string/escape s {\' "\\'"}))
+(defn escape [s]
+  (string/escape s { \' "\\'"
+                     \\ "\\\\" }))
 
 
 (defn code-sample
