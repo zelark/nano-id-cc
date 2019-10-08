@@ -97,6 +97,15 @@
          (set! (.. % -target -value) (:speed @db/app-db))
          (db/put :speed val))))
 
+  (.addEventListener
+    elements/copy-btn
+    "click"
+    #(let [text elements/code-sample
+           range (-> js/document (.createRange))]
+       (-> range (.selectNode text))
+       (-> js/window (.getSelection) (.addRange range))
+       (-> js/document (.execCommand "copy"))))
+
   (doseq [button elements/radio-buttons]
     (.addEventListener
       button

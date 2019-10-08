@@ -173,7 +173,7 @@ img.boom {
 }
 
 
-.copy-btn {
+#copy-btn {
   position: absolute;
   right: 6px;
   top: 6px;
