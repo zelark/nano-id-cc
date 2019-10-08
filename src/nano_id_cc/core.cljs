@@ -100,9 +100,8 @@
   (.addEventListener
     elements/copy-btn
     "click"
-    #(let [text elements/code-sample
-           range (-> js/document (.createRange))]
-       (-> range (.selectNode text))
+    #(let [range (-> js/document (.createRange))]
+       (-> range (.selectNode elements/code-sample))
        (-> js/window (.getSelection) (.addRange range))
        (-> js/document (.execCommand "copy"))))
 
