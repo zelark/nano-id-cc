@@ -1,6 +1,6 @@
 # Nano ID Collision Calculator
 
-[Nano ID](https://github.com/ai/nanoid) is a library for generating random IDs. Likewise UUID there is a probability that an ID will be duplicated. But this probability is extremely small.
+[Nano ID](https://github.com/ai/nanoid) is a library for generating random IDs. Likewise UUID, there is a probability that an ID will be duplicated. But this probability is extremely small.
 
 Meanwhile there are many projects that generates IDs in small numbers. For those projects the ID length could be reduced without risk.
 
