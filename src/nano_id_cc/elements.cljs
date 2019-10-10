@@ -14,3 +14,5 @@
 
 (def result      (.getElementById doc "result"))
 (def code-sample (.getElementById doc "code-sample"))
+
+(def copy-btn (.getElementById doc "copy-btn"))

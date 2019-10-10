@@ -21,6 +21,7 @@ code {
   line-height: 1.6em;
   box-sizing: border-box;
   max-width: 700px;
+  min-height: 30px;
   width: 100%;
   margin: 1em 0;
   padding: 6px;
@@ -164,6 +165,26 @@ img.logo {
 
 img.boom {
   width: 100%;
+}
+
+
+.snippet {
+  position: relative;
+}
+
+
+#copy-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+
+  width: 20px;
+  height: 20px;
+
+  border: none;
+  background: url(../clippy.svg) no-repeat transparent;
+
+  cursor: pointer;
 }
 
 
