@@ -100,13 +100,13 @@
   (.addEventListener
     elements/copy-btn
     "click"
-    #(let [range (-> js/document (.createRange))
-           selection (-> js/window (.getSelection))]
-       (-> range (.selectNodeContents elements/code-sample))
-       (-> selection (.removeAllRanges))
-       (-> selection (.addRange range))
-       (-> js/document (.execCommand "copy"))
-       (-> selection (.removeAllRanges))))
+    #(let [range     (.createRange js/document)
+           selection (.getSelection js/window)]
+       (.selectNodeContents range elements/code-sample)
+       (.removeAllRanges selection)
+       (.addRange selection range)
+       (.execCommand js/document "copy")
+       (.removeAllRanges selection)))
 
   (doseq [button elements/radio-buttons]
     (.addEventListener
