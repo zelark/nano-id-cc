@@ -179,7 +179,7 @@
           (if boom?
             (set! (.-innerHTML elements/code-sample)
                   "<img class=\"boom\" src=\"boom.jpg\" alt=\"BOOM!!!\">")
-            (set! (.-innerHTML elements/code-sample)
+            (set! (.-textContent elements/code-sample)
                   (code-sample new-state)))
           (highlight-code)))))
 
