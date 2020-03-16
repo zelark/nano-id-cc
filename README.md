@@ -7,6 +7,11 @@ Meanwhile, a lot of projects generate IDs in small numbers. For those projects, 
 This [calculator](https://zelark.github.io/nano-id-cc/) aims to help you realize the extent to which the ID length can be reduced.
 
 ## Setup
+First, you need to have [Leiningen](https://leiningen.org/) installed.
+
+To minify CSS run:
+
+    lein minify-assets
 
 To get an interactive development environment run:
 
@@ -22,7 +27,7 @@ To clean all compiled files:
 
 To create a production build run:
 
-    lein do clean, cljsbuild once min
+    lein build
 
 ## Acknowledgments
 
