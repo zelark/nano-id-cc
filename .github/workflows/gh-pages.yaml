@@ -16,8 +16,6 @@ jobs:
         run: lein deps
       - name: Make a build
         run: lein build
-      - name: Minify CSS
-        run: lein minify-assets
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
