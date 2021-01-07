@@ -66,7 +66,8 @@
            "nanoid(" len "); //=> \"" id "\"")
       (str "const { customAlphabet } = require('nanoid');\n"
            "const alphabet = '" (escape alphabet) "';\n"
-           "customAlphabet(alphabet, " length "); //=> \"" id "\""))))
+           "const nanoid = customAlphabet(alphabet, " length ");\n"
+           "nanoid()//=> \"" id "\""))))
 
 
 (defn highlight-code []
