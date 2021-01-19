@@ -62,7 +62,7 @@
         nano-id (nano-id.custom/generate alphabet)
         id      (nano-id length)]
     (if (not custom?)
-      (str "const nanoid = require('nanoid');\n"
+      (str "const { nanoid } = require('nanoid');\n"
            "nanoid(" len "); //=> \"" id "\"")
       (str "const { customAlphabet } = require('nanoid');\n"
            "const alphabet = '" (escape alphabet) "';\n"
