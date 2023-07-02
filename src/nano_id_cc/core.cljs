@@ -24,8 +24,14 @@
             { :num 1000    :as-is? true   :ending "More than 1 quadrillion years" }])
 
 
+(def number-formatter
+  (js/Intl.NumberFormat "en" #js{:notation "compact"
+                                 :roundingMode "floor"
+                                 :maximumFractionDigits 0}))
+
+
 (defn pluralize [n word]
-  (if (== n 1) word (str word "s")))
+  (if (or (== n 1) (= n "1")) word (str word "s")))
 
 
 (defn format-time [time]
@@ -46,8 +52,10 @@
         random-bits (calc/random-bits (count alphabet) length)
         probability 0.01
         number-ids  (calc/critical-number random-bits probability)
-        time        (calc/time-to-collision number-ids speed)]
-    (str (format-time time))))
+        time        (calc/time-to-collision number-ids speed)
+        number-ids' (.format number-formatter number-ids)]
+    (str (format-time time)
+         " or " number-ids' " " (pluralize number-ids' "ID"))))
 
 
 (defn escape [s]
