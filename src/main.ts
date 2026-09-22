@@ -93,15 +93,7 @@ export function init(): void {
   });
 
   copyBtn.addEventListener('click', () => {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    if (!selection) return;
-
-    range.selectNodeContents(codeSampleEl);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
-    selection.removeAllRanges();
+    navigator.clipboard.writeText(codeSampleEl.textContent ?? '').catch(() => {});
   });
 
   for (const button of radioButtons) {
