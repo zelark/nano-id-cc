@@ -14,14 +14,14 @@ export function codeSample(state: State): string {
   if (!custom) {
     const id = nanoid(length);
     return (
-      "const { nanoid } = require('nanoid');\n" +
+      "import { nanoid } from 'nanoid';\n" +
       `nanoid(${sizeArg}); //=> "${id}"`
     );
   }
 
   const id = customAlphabet(alphabet, length)();
   return (
-    "const { customAlphabet } = require('nanoid');\n" +
+    "import { customAlphabet } from 'nanoid';\n" +
     `const alphabet = '${escape(alphabet)}';\n` +
     `const nanoid = customAlphabet(alphabet, ${length});\n` +
     `nanoid() //=> "${id}"`
@@ -29,9 +29,9 @@ export function codeSample(state: State): string {
 }
 
 // Tiny highlighter for the fixed snippets above: comments, strings, numbers,
-// the `const` keyword and the `require` built-in. Reuses the existing
-// `hljs-*` CSS classes so the visuals stay identical.
-const TOKEN = /(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*')|(\b\d+\b)|(\bconst\b)|(\brequire\b)/g;
+// and the `const`/`import`/`from` keywords. Reuses the existing `hljs-*` CSS
+// classes so the visuals stay identical.
+const TOKEN = /(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*')|(\b\d+\b)|(\b(?:const|import|from)\b)/g;
 
 function escapeHtml(value: string): string {
   return value.replace(/[&<>]/g, (c) => (c === '&' ? '&amp;' : c === '<' ? '&lt;' : '&gt;'));
@@ -41,8 +41,7 @@ function tokenClass(match: RegExpExecArray): string {
   if (match[1]) return 'hljs-comment';
   if (match[2]) return 'hljs-string';
   if (match[3]) return 'hljs-number';
-  if (match[4]) return 'hljs-keyword';
-  return 'hljs-built_in';
+  return 'hljs-keyword';
 }
 
 function highlight(code: string): string {
