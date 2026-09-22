@@ -10,7 +10,6 @@
     "dev": "esbuild public/css/style.css --minify --outfile=public/css/style.min.css && esbuild src/main.ts --bundle --watch --servedir=public --outdir=public/js"
   },
   "dependencies": {
-    "highlight.js": "^11.12.0",
     "nanoid": "^6.0.1"
   },
   "devDependencies": {
