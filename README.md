@@ -7,27 +7,26 @@ Meanwhile, a lot of projects generate IDs in small numbers. For those projects, 
 This [calculator](https://zelark.github.io/nano-id-cc/) aims to help you realize the extent to which the ID length can be reduced.
 
 ## Setup
-First, you need to have [Leiningen](https://leiningen.org/) installed.
 
-To minify CSS run:
+First, you need to have [Node.js](https://nodejs.org/) 22 or newer installed.
 
-    lein minify-assets
+Install dependencies:
 
-To get an interactive development environment run:
+    npm ci
 
-    lein figwheel
+To type-check the sources:
 
-It will open your browser at [localhost:3449/index.html](http://localhost:3449/index.html).
-This will auto compile and send all changes to the browser without the
-need to reload.
+    npm run typecheck
 
-To clean all compiled files:
+To create a production build (output goes to `dist/`):
 
-    lein clean
+    npm run build
 
-To create a production build run:
+To start a local development server with live reload:
 
-    lein build
+    npm run dev
+
+It will serve the app locally (the URL and port are printed in the console).
 
 ## Acknowledgments
 
