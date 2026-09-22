@@ -1,10 +1,6 @@
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
 import { customAlphabet, nanoid } from 'nanoid';
 import { ALPHABET, LENGTH } from './defaults';
 import type { State } from './state';
-
-hljs.registerLanguage('javascript', javascript);
 
 function escape(value: string): string {
   return value.replace(/(['\\])/g, (match) => (match === "'" ? "\\'" : '\\\\'));
@@ -32,8 +28,39 @@ export function codeSample(state: State): string {
   );
 }
 
+// Tiny highlighter for the fixed snippets above: comments, strings, numbers,
+// the `const` keyword and the `require` built-in. Reuses the existing
+// `hljs-*` CSS classes so the visuals stay identical.
+const TOKEN = /(\/\/[^\n]*)|('(?:[^'\\\n]|\\.)*')|(\b\d+\b)|(\bconst\b)|(\brequire\b)/g;
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>]/g, (c) => (c === '&' ? '&amp;' : c === '<' ? '&lt;' : '&gt;'));
+}
+
+function tokenClass(match: RegExpExecArray): string {
+  if (match[1]) return 'hljs-comment';
+  if (match[2]) return 'hljs-string';
+  if (match[3]) return 'hljs-number';
+  if (match[4]) return 'hljs-keyword';
+  return 'hljs-built_in';
+}
+
+function highlight(code: string): string {
+  let out = '';
+  let last = 0;
+  let match: RegExpExecArray | null;
+
+  TOKEN.lastIndex = 0;
+  while ((match = TOKEN.exec(code)) !== null) {
+    out += escapeHtml(code.slice(last, match.index));
+    out += `<span class="${tokenClass(match)}">${escapeHtml(match[0])}</span>`;
+    last = match.index + match[0].length;
+  }
+
+  return out + escapeHtml(code.slice(last));
+}
+
 export function highlightCode(element: HTMLElement): void {
-  const code = element.textContent ?? '';
-  element.innerHTML = hljs.highlight(code, { language: 'javascript' }).value;
+  element.innerHTML = highlight(element.textContent ?? '');
   element.classList.add('hljs');
 }
