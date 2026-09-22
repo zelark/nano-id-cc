@@ -33,5 +33,7 @@ export function codeSample(state: State): string {
 }
 
 export function highlightCode(element: HTMLElement): void {
-  hljs.highlightElement(element);
+  const code = element.textContent ?? '';
+  element.innerHTML = hljs.highlight(code, { language: 'javascript' }).value;
+  element.classList.add('hljs');
 }
