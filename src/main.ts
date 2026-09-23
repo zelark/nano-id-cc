@@ -24,6 +24,21 @@ const radioButtons = Array.from(
 let prevAlphabet = '';
 let prevLength = -1;
 
+const COPY_FEEDBACK_MS = 1500;
+let copyFeedbackTimer: number | undefined;
+
+function flashCopyState(className: 'copied' | 'copy-error'): void {
+  copyBtn.classList.remove('copied', 'copy-error');
+  // Force a reflow so re-adding the class restarts the CSS animation.
+  void copyBtn.offsetWidth;
+  copyBtn.classList.add(className);
+  window.clearTimeout(copyFeedbackTimer);
+  copyFeedbackTimer = window.setTimeout(() => {
+    copyBtn.classList.remove(className);
+    copyFeedbackTimer = undefined;
+  }, COPY_FEEDBACK_MS);
+}
+
 function render(): void {
   const state = getState();
   const { alphabet: alphabetValue, length: lengthValue, speed: speedValue, unit } = state;
@@ -93,7 +108,19 @@ export function init(): void {
   });
 
   copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(codeSampleEl.textContent ?? '').catch(() => {});
+    if (!navigator.clipboard) {
+      console.error('Clipboard API is not available in this context.');
+      flashCopyState('copy-error');
+      return;
+    }
+
+    navigator.clipboard.writeText(codeSampleEl.textContent ?? '').then(
+      () => flashCopyState('copied'),
+      (error: unknown) => {
+        console.error('Failed to copy snippet:', error);
+        flashCopyState('copy-error');
+      },
+    );
   });
 
   for (const button of radioButtons) {
