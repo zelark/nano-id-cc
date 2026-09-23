@@ -6,7 +6,6 @@ import {
   hexadecimalUppercase,
   lowercase,
   nolookalikes,
-  nolookalikesSafe,
   numbers,
   uppercase,
 } from 'nanoid-dictionary';
@@ -32,9 +31,8 @@ export const ALPHABET_PRESETS: AlphabetPreset[] = [
   { id: 'hex-lower', label: 'Hex lowercase', value: hexadecimalLowercase },
   { id: 'hex-upper', label: 'Hex uppercase', value: hexadecimalUppercase },
   { id: 'nolookalikes', label: 'No look-alikes', value: nolookalikes },
-  { id: 'nolookalikes-safe', label: 'No look-alikes (safe)', value: nolookalikesSafe },
-  { id: 'cookie-unsafe', label: 'Cookie', value: cookieUnsafe },
   { id: 'cookie-safe', label: 'Cookie (safe)', value: cookieSafe },
+  { id: 'cookie-unsafe', label: 'Cookie (unsafe)', value: cookieUnsafe },
 ];
 
 export function getPreset(id: string): AlphabetPreset | undefined {
