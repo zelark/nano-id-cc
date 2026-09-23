@@ -32,6 +32,9 @@ export function setState(patch: Partial<State>): void {
   }
 }
 
-export function subscribe(listener: Listener): void {
+export function subscribe(listener: Listener): () => void {
   listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }
