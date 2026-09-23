@@ -8,11 +8,12 @@
     "build": "node build.mjs",
     "minify:css": "esbuild public/css/style.css --minify --outfile=public/css/style.min.css",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/calc.test.ts src/format.test.ts",
+    "test": "node --import tsx --test src/calc.test.ts src/format.test.ts src/alphabets.test.ts",
     "dev": "npm run minify:css && esbuild src/main.ts --bundle --watch --servedir=public --outdir=public/js"
   },
   "dependencies": {
-    "nanoid": "^6.0.1"
+    "nanoid": "^6.0.1",
+    "nanoid-dictionary": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.2",

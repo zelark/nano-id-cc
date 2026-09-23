@@ -1,3 +1,4 @@
+import { DEFAULT_PRESET_ID } from './alphabets';
 import { ALPHABET, LENGTH } from './defaults';
 
 export type Unit = 'hour' | 'second';
@@ -7,6 +8,8 @@ export interface State {
   speed: number;
   length: number;
   alphabet: string;
+  /** Id of the selected alphabet preset, or `null` when the alphabet is custom. */
+  preset: string | null;
 }
 
 export const initialState: State = {
@@ -14,6 +17,7 @@ export const initialState: State = {
   speed: 1000,
   length: LENGTH,
   alphabet: ALPHABET,
+  preset: DEFAULT_PRESET_ID,
 };
 
 type Listener = (state: State) => void;
