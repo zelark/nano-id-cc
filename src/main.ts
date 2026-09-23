@@ -1,7 +1,7 @@
 import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset } from './alphabets';
 import { codeSample, highlightCode } from './code-sample';
 import { formatResult } from './format';
-import { getState, setState, subscribe } from './state';
+import { getAlphabet, getState, setState, subscribe } from './state';
 import type { Unit } from './state';
 
 function getElement<T extends HTMLElement>(id: string): T {
@@ -58,13 +58,8 @@ function populatePresetSelect(): void {
 
 function render(): void {
   const state = getState();
-  const {
-    alphabet: alphabetValue,
-    length: lengthValue,
-    speed: speedValue,
-    unit,
-    preset,
-  } = state;
+  const alphabetValue = getAlphabet(state);
+  const { length: lengthValue, speed: speedValue, unit, preset } = state;
 
   // Alphabet field and counter.
   const len = alphabetValue.length;
@@ -113,9 +108,9 @@ export function init(): void {
   alphabet.addEventListener('input', (event) => {
     const target = event.target as HTMLTextAreaElement;
     if (target.value.length <= 256) {
-      setState({ alphabet: target.value, preset: null });
+      setState({ customAlphabet: target.value, preset: null });
     } else {
-      target.value = getState().alphabet;
+      target.value = getAlphabet(getState());
     }
   });
 
@@ -138,7 +133,7 @@ export function init(): void {
     const target = event.target as HTMLSelectElement;
     const preset = getPreset(target.value);
     if (!preset) return; // The disabled "Custom" option is not a real preset.
-    setState({ alphabet: preset.value, preset: preset.id });
+    setState({ preset: preset.id });
   });
 
   copyBtn.addEventListener('click', () => {

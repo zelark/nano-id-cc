@@ -1,5 +1,6 @@
 import { customAlphabet, nanoid } from 'nanoid';
 import { ALPHABET, LENGTH } from './defaults';
+import { getAlphabet } from './state';
 import type { State } from './state';
 
 function escape(value: string): string {
@@ -7,7 +8,8 @@ function escape(value: string): string {
 }
 
 export function codeSample(state: State): string {
-  const { alphabet, length } = state;
+  const alphabet = getAlphabet(state);
+  const { length } = state;
   const custom = alphabet !== ALPHABET;
   const sizeArg = length === LENGTH ? '' : String(length);
 
