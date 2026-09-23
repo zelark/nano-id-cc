@@ -12,8 +12,7 @@
     "dev": "npm run minify:css && esbuild src/main.ts --bundle --watch --servedir=public --outdir=public/js"
   },
   "dependencies": {
-    "nanoid": "^6.0.1",
-    "nanoid-dictionary": "^5.0.0"
+    "nanoid": "^6.0.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.2",
