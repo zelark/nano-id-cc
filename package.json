@@ -7,13 +7,16 @@
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/calc.test.ts src/format.test.ts",
     "dev": "esbuild public/css/style.css --minify --outfile=public/css/style.min.css && esbuild src/main.ts --bundle --watch --servedir=public --outdir=public/js"
   },
   "dependencies": {
     "nanoid": "^6.0.1"
   },
   "devDependencies": {
+    "@types/node": "^26.6.2",
     "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
 }
