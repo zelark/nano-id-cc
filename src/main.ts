@@ -51,7 +51,7 @@ function populatePresetSelect(): void {
 
   const custom = document.createElement('option');
   custom.value = CUSTOM_PRESET_VALUE;
-  custom.textContent = 'Custom';
+  custom.textContent = 'User defined';
   custom.disabled = true;
   presetSelect.append(custom);
 }
@@ -132,7 +132,7 @@ export function init(): void {
   presetSelect.addEventListener('change', (event) => {
     const target = event.target as HTMLSelectElement;
     const preset = getPreset(target.value);
-    if (!preset) return; // The disabled "Custom" option is not a real preset.
+    if (!preset) return; // The disabled "User defined" option is not a real preset.
     setState({ preset: preset.id });
   });
 

@@ -19,7 +19,7 @@ export interface AlphabetPreset {
 
 export const DEFAULT_PRESET_ID = 'nanoid';
 
-/** Sentinel value of the non-selectable "Custom" option in the preset dropdown. */
+/** Sentinel value of the non-selectable "User defined" option in the preset dropdown. */
 export const CUSTOM_PRESET_VALUE = '__custom__';
 
 export const ALPHABET_PRESETS: AlphabetPreset[] = [
