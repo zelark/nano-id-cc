@@ -1,4 +1,5 @@
 import { criticalNumber, randomBits, timeToCollision } from './calc';
+import { getAlphabet } from './state';
 import type { State } from './state';
 
 interface TimeUnit {
@@ -58,7 +59,7 @@ function uniqueChars(value: string): string {
 }
 
 export function formatResult(state: State): string {
-  const alphabet = uniqueChars(state.alphabet);
+  const alphabet = uniqueChars(getAlphabet(state));
   const speed = state.unit === 'hour' ? state.speed / 3600 : state.speed;
   const bits = randomBits(alphabet.length, state.length);
   const probability = 0.01;

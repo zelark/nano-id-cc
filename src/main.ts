@@ -1,6 +1,7 @@
+import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset, getPresetByValue } from './alphabets';
 import { codeSample, highlightCode } from './code-sample';
 import { formatResult } from './format';
-import { getState, setState, subscribe } from './state';
+import { getAlphabet, getState, setState, subscribe } from './state';
 import type { Unit } from './state';
 
 function getElement<T extends HTMLElement>(id: string): T {
@@ -17,6 +18,7 @@ const counter = getElement<HTMLSpanElement>('counter');
 const result = getElement<HTMLElement>('result');
 const codeSampleEl = getElement<HTMLElement>('code-sample');
 const copyBtn = getElement<HTMLButtonElement>('copy-btn');
+const presetSelect = getElement<HTMLSelectElement>('alphabet-preset');
 const radioButtons = Array.from(
   document.querySelectorAll<HTMLInputElement>('input[type=radio]'),
 );
@@ -39,9 +41,25 @@ function flashCopyState(className: 'copied' | 'copy-error'): void {
   }, COPY_FEEDBACK_MS);
 }
 
+function populatePresetSelect(): void {
+  for (const preset of ALPHABET_PRESETS) {
+    const option = document.createElement('option');
+    option.value = preset.id;
+    option.textContent = preset.label;
+    presetSelect.append(option);
+  }
+
+  const custom = document.createElement('option');
+  custom.value = CUSTOM_PRESET_VALUE;
+  custom.textContent = 'User defined';
+  custom.disabled = true;
+  presetSelect.append(custom);
+}
+
 function render(): void {
   const state = getState();
-  const { alphabet: alphabetValue, length: lengthValue, speed: speedValue, unit } = state;
+  const alphabetValue = getAlphabet(state);
+  const { length: lengthValue, speed: speedValue, unit, preset } = state;
 
   // Alphabet field and counter.
   const len = alphabetValue.length;
@@ -49,6 +67,10 @@ function render(): void {
   alphabet.classList.toggle('spoiled', spoiledAlphabet);
   if (alphabet.value !== alphabetValue) alphabet.value = alphabetValue;
   counter.textContent = `${len}/256`;
+
+  // Alphabet preset dropdown.
+  const presetValue = preset ?? CUSTOM_PRESET_VALUE;
+  if (presetSelect.value !== presetValue) presetSelect.value = presetValue;
 
   // Length display and slider.
   const lengthString = String(lengthValue);
@@ -85,11 +107,13 @@ function render(): void {
 export function init(): void {
   alphabet.addEventListener('input', (event) => {
     const target = event.target as HTMLTextAreaElement;
-    if (target.value.length <= 256) {
-      setState({ alphabet: target.value });
-    } else {
-      target.value = getState().alphabet;
+    if (target.value.length > 256) {
+      target.value = getAlphabet(getState());
+      return;
     }
+
+    const preset = getPresetByValue(target.value);
+    setState({ customAlphabet: target.value, preset: preset ? preset.id : null });
   });
 
   slider.addEventListener('input', (event) => {
@@ -105,6 +129,13 @@ export function init(): void {
     } else {
       setState({ speed: value });
     }
+  });
+
+  presetSelect.addEventListener('change', (event) => {
+    const target = event.target as HTMLSelectElement;
+    const preset = getPreset(target.value);
+    if (!preset) return; // The disabled "User defined" option is not a real preset.
+    setState({ preset: preset.id });
   });
 
   copyBtn.addEventListener('click', () => {
@@ -129,6 +160,8 @@ export function init(): void {
       setState({ unit: target.value as Unit });
     });
   }
+
+  populatePresetSelect();
 
   subscribe(render);
   render();
