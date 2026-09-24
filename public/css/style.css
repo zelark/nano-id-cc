@@ -263,12 +263,19 @@ img.boom {
 }
 
 
+.alphabet-preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 2px;
+  column-gap: 4px;
+}
+
+
 #alphabet-preset {
   appearance: none;
   cursor: pointer;
-  vertical-align: middle;
   max-width: 100%;
-  margin-left: 4px;
   padding-right: 24px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2393B7BE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
