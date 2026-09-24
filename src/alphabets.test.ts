@@ -6,6 +6,7 @@ import {
   CUSTOM_PRESET_VALUE,
   DEFAULT_PRESET_ID,
   getPreset,
+  getPresetByValue,
 } from './alphabets';
 
 test('presets have unique ids, unique values and non-empty labels', () => {
@@ -30,4 +31,14 @@ test('getPreset resolves by id and returns undefined for unknown ids', () => {
   assert.equal(getPreset('numbers')?.id, 'numbers');
   assert.equal(getPreset(CUSTOM_PRESET_VALUE), undefined);
   assert.equal(getPreset('does-not-exist'), undefined);
+});
+
+test('getPresetByValue resolves by value and returns undefined for unknown values', () => {
+  assert.equal(getPresetByValue('0123456789')?.id, 'numbers');
+  assert.equal(getPresetByValue('custom-xyz'), undefined);
+  assert.equal(getPresetByValue(''), undefined);
+
+  for (const preset of ALPHABET_PRESETS) {
+    assert.equal(getPresetByValue(preset.value)?.id, preset.id);
+  }
 });

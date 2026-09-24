@@ -44,3 +44,7 @@ export const ALPHABET_PRESETS: AlphabetPreset[] = [
 export function getPreset(id: string): AlphabetPreset | undefined {
   return ALPHABET_PRESETS.find((preset) => preset.id === id);
 }
+
+export function getPresetByValue(value: string): AlphabetPreset | undefined {
+  return ALPHABET_PRESETS.find((preset) => preset.value === value);
+}

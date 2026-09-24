@@ -1,4 +1,4 @@
-import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset } from './alphabets';
+import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset, getPresetByValue } from './alphabets';
 import { codeSample, highlightCode } from './code-sample';
 import { formatResult } from './format';
 import { getAlphabet, getState, setState, subscribe } from './state';
@@ -107,11 +107,13 @@ function render(): void {
 export function init(): void {
   alphabet.addEventListener('input', (event) => {
     const target = event.target as HTMLTextAreaElement;
-    if (target.value.length <= 256) {
-      setState({ customAlphabet: target.value, preset: null });
-    } else {
+    if (target.value.length > 256) {
       target.value = getAlphabet(getState());
+      return;
     }
+
+    const preset = getPresetByValue(target.value);
+    setState({ customAlphabet: target.value, preset: preset ? preset.id : null });
   });
 
   slider.addEventListener('input', (event) => {
