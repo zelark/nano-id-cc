@@ -1,4 +1,4 @@
-import { criticalNumber, randomBits, timeToCollision } from './calc';
+import { criticalNumber, randomBits, timeToCollision, UUID_RANDOM_BITS, UUID_RANDOM_BITS_TOLERANCE } from './calc';
 import { getAlphabet } from './state';
 import type { State } from './state';
 
@@ -68,4 +68,37 @@ export function formatResult(state: State): string {
   const formattedIds = numberFormatter.format(numberIds);
 
   return formatTime(time) + ' or ' + formattedIds + ' ' + pluralize(formattedIds, 'ID');
+}
+
+export interface RandomBitsInfo {
+  value: string;
+  comparison: string;
+  relation: 'above' | 'below' | 'similar';
+}
+
+export function formatRandomBits(state: State): RandomBitsInfo {
+  const alphabet = uniqueChars(getAlphabet(state));
+  const bits = randomBits(alphabet.length, state.length);
+
+  if (!Number.isFinite(bits)) {
+    return { value: '—', comparison: '', relation: 'similar' };
+  }
+
+  const rounded = Math.round(bits);
+  const relation = Math.abs(rounded - UUID_RANDOM_BITS) <= UUID_RANDOM_BITS_TOLERANCE
+    ? 'similar'
+    : rounded < UUID_RANDOM_BITS
+      ? 'below'
+      : 'above';
+
+  let comparison: string;
+  if (relation === 'above') {
+    comparison = `more than UUID (${UUID_RANDOM_BITS} bits)`;
+  } else if (relation === 'below') {
+    comparison = `less than UUID (${UUID_RANDOM_BITS} bits)`;
+  } else {
+    comparison = `similar to UUID (${UUID_RANDOM_BITS} bits)`;
+  }
+
+  return { value: `${rounded} random bits`, comparison, relation };
 }

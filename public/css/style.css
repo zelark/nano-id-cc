@@ -290,6 +290,11 @@ img.boom {
 }
 
 
+#entropy-comparison.below-uuid {
+  color: #C3423F;
+}
+
+
 #header-with-txt-logo {
   grid-column: span 12;
   display: none;
