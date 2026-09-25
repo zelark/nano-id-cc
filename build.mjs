@@ -26,6 +26,6 @@ await build({
 });
 
 // Copy static assets
-for (const file of ['index.html', 'boom.jpg', 'clippy.svg', 'logo.svg', 'favicon.ico']) {
+for (const file of ['index.html', 'boom.jpg', 'clippy.svg', 'logo.svg', 'refresh.svg', 'favicon.ico']) {
   await cp(`public/${file}`, `${outdir}/${file}`);
 }
