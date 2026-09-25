@@ -2,7 +2,7 @@ import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset, getPresetByValue } fr
 import { codeSample, highlightCode } from './code-sample';
 import { formatRandomBits, formatResult } from './format';
 import { getAlphabet, getState, setState, subscribe } from './state';
-import type { Unit } from './state';
+import type { State, Unit } from './state';
 
 function getElement<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -19,6 +19,7 @@ const result = getElement<HTMLElement>('result');
 const entropyRow = getElement<HTMLElement>('entropy-row');
 const codeSampleEl = getElement<HTMLElement>('code-sample');
 const copyBtn = getElement<HTMLButtonElement>('copy-btn');
+const refreshBtn = getElement<HTMLButtonElement>('refresh-btn');
 const presetSelect = getElement<HTMLSelectElement>('alphabet-preset');
 const radioButtons = Array.from(
   document.querySelectorAll<HTMLInputElement>('input[type=radio]'),
@@ -55,6 +56,17 @@ function populatePresetSelect(): void {
   custom.textContent = 'User defined';
   custom.disabled = true;
   presetSelect.append(custom);
+}
+
+function renderCodeSample(state: State): void {
+  const len = getAlphabet(state).length;
+
+  if (len < 2) {
+    codeSampleEl.innerHTML = '<img class="boom" src="boom.jpg" alt="BOOM!!!">';
+  } else {
+    codeSampleEl.textContent = codeSample(state);
+    highlightCode(codeSampleEl);
+  }
 }
 
 function render(): void {
@@ -104,13 +116,7 @@ function render(): void {
   if (alphabetValue !== prevAlphabet || lengthValue !== prevLength) {
     prevAlphabet = alphabetValue;
     prevLength = lengthValue;
-
-    if (len < 2) {
-      codeSampleEl.innerHTML = '<img class="boom" src="boom.jpg" alt="BOOM!!!">';
-    } else {
-      codeSampleEl.textContent = codeSample(state);
-      highlightCode(codeSampleEl);
-    }
+    renderCodeSample(state);
   }
 }
 
@@ -146,6 +152,15 @@ export function init(): void {
     const preset = getPreset(target.value);
     if (!preset) return; // The disabled "User defined" option is not a real preset.
     setState({ preset: preset.id });
+  });
+
+  refreshBtn.addEventListener('click', () => {
+    renderCodeSample(getState());
+
+    refreshBtn.classList.remove('spin');
+    // Force a reflow so re-adding the class restarts the CSS animation.
+    void refreshBtn.offsetWidth;
+    refreshBtn.classList.add('spin');
   });
 
   copyBtn.addEventListener('click', () => {
