@@ -73,7 +73,7 @@ export function formatResult(state: State): string {
 export interface RandomBitsInfo {
   value: string;
   comparison: string;
-  relation: 'above' | 'below' | 'similar';
+  relation: 'above' | 'below' | 'similar' | 'none';
 }
 
 export function formatRandomBits(state: State): RandomBitsInfo {
@@ -81,13 +81,13 @@ export function formatRandomBits(state: State): RandomBitsInfo {
   const bits = randomBits(alphabet.length, state.length);
 
   if (!Number.isFinite(bits)) {
-    return { value: '—', comparison: '', relation: 'similar' };
+    return { value: '', comparison: '', relation: 'none' };
   }
 
   const rounded = Math.round(bits);
-  const relation = Math.abs(rounded - UUID_RANDOM_BITS) <= UUID_RANDOM_BITS_TOLERANCE
+  const relation = Math.abs(bits - UUID_RANDOM_BITS) <= UUID_RANDOM_BITS_TOLERANCE
     ? 'similar'
-    : rounded < UUID_RANDOM_BITS
+    : bits < UUID_RANDOM_BITS
       ? 'below'
       : 'above';
 

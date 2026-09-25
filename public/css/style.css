@@ -290,7 +290,8 @@ img.boom {
 }
 
 
-#entropy-comparison.below-uuid {
+.below-uuid,
+.entropy-error {
   color: #C3423F;
 }
 

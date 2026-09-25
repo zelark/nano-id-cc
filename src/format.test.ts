@@ -81,6 +81,14 @@ test('formatRandomBits treats values within tolerance as similar', () => {
   assert.equal(formatRandomBits(upperBound).relation, 'similar');
 });
 
+test('formatRandomBits compares raw bits, not the rounded value', () => {
+  const justBelow: State = { unit: 'hour', speed: 1000, length: 23, customAlphabet: '0123456789abcdefghijklmnopqrstuvwxy', preset: null };
+  assert.equal(formatRandomBits(justBelow).relation, 'below');
+
+  const justAbove: State = { unit: 'hour', speed: 1000, length: 45, customAlphabet: '0123456', preset: null };
+  assert.equal(formatRandomBits(justAbove).relation, 'above');
+});
+
 test('formatRandomBits deduplicates the alphabet', () => {
   const withDuplicates: State = { unit: 'hour', speed: 1000, length: 21, customAlphabet: 'aabbcc', preset: null };
   const deduplicated: State = { unit: 'hour', speed: 1000, length: 21, customAlphabet: 'abc', preset: null };
@@ -90,8 +98,8 @@ test('formatRandomBits deduplicates the alphabet', () => {
 test('formatRandomBits handles empty alphabet', () => {
   const state: State = { unit: 'hour', speed: 1000, length: 21, customAlphabet: '', preset: null };
   assert.deepEqual(formatRandomBits(state), {
-    value: '—',
+    value: '',
     comparison: '',
-    relation: 'similar',
+    relation: 'none',
   });
 });

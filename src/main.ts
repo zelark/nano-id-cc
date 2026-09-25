@@ -16,8 +16,7 @@ const speed = getElement<HTMLInputElement>('speed');
 const slider = getElement<HTMLInputElement>('length-slider');
 const counter = getElement<HTMLSpanElement>('counter');
 const result = getElement<HTMLElement>('result');
-const entropyValue = getElement<HTMLElement>('entropy-value');
-const entropyComparison = getElement<HTMLElement>('entropy-comparison');
+const entropyRow = getElement<HTMLElement>('entropy-row');
 const codeSampleEl = getElement<HTMLElement>('code-sample');
 const copyBtn = getElement<HTMLButtonElement>('copy-btn');
 const presetSelect = getElement<HTMLSelectElement>('alphabet-preset');
@@ -94,9 +93,12 @@ function render(): void {
 
   // Random bits and comparison to UUID.
   const randomBitsInfo = formatRandomBits(state);
-  entropyValue.textContent = randomBitsInfo.value;
-  entropyComparison.textContent = randomBitsInfo.comparison;
-  entropyComparison.classList.toggle('below-uuid', randomBitsInfo.relation === 'below');
+  if (randomBitsInfo.relation === 'none') {
+    entropyRow.innerHTML = '<span class="entropy-error">Entropy cannot be calculated!</span>';
+  } else {
+    const below = randomBitsInfo.relation === 'below';
+    entropyRow.innerHTML = `ID has <em>${randomBitsInfo.value}</em>, <span${below ? ' class="below-uuid"' : ''}>${randomBitsInfo.comparison}</span>`;
+  }
 
   // Code sample is regenerated only when the alphabet or length changes.
   if (alphabetValue !== prevAlphabet || lengthValue !== prevLength) {
