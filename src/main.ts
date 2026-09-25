@@ -1,6 +1,6 @@
 import { ALPHABET_PRESETS, CUSTOM_PRESET_VALUE, getPreset, getPresetByValue } from './alphabets';
 import { codeSample, highlightCode } from './code-sample';
-import { formatResult } from './format';
+import { formatRandomBits, formatResult } from './format';
 import { getAlphabet, getState, setState, subscribe } from './state';
 import type { Unit } from './state';
 
@@ -16,6 +16,7 @@ const speed = getElement<HTMLInputElement>('speed');
 const slider = getElement<HTMLInputElement>('length-slider');
 const counter = getElement<HTMLSpanElement>('counter');
 const result = getElement<HTMLElement>('result');
+const entropyRow = getElement<HTMLElement>('entropy-row');
 const codeSampleEl = getElement<HTMLElement>('code-sample');
 const copyBtn = getElement<HTMLButtonElement>('copy-btn');
 const presetSelect = getElement<HTMLSelectElement>('alphabet-preset');
@@ -89,6 +90,15 @@ function render(): void {
 
   // Result text.
   result.textContent = formatResult(state);
+
+  // Random bits and comparison to UUID.
+  const randomBitsInfo = formatRandomBits(state);
+  if (randomBitsInfo.relation === 'none') {
+    entropyRow.innerHTML = '<span class="entropy-error">Entropy cannot be calculated!</span>';
+  } else {
+    const below = randomBitsInfo.relation === 'below';
+    entropyRow.innerHTML = `ID has <em>${randomBitsInfo.value}</em>, <span${below ? ' class="below-uuid"' : ''}>${randomBitsInfo.comparison}</span>`;
+  }
 
   // Code sample is regenerated only when the alphabet or length changes.
   if (alphabetValue !== prevAlphabet || lengthValue !== prevLength) {

@@ -290,6 +290,12 @@ img.boom {
 }
 
 
+.below-uuid,
+.entropy-error {
+  color: #C3423F;
+}
+
+
 #header-with-txt-logo {
   grid-column: span 12;
   display: none;
