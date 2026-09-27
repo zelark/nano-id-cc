@@ -6,6 +6,10 @@ Meanwhile, a lot of projects generate IDs in small numbers. For those projects, 
 
 This [calculator](https://zelark.github.io/nano-id-cc/) aims to help you realize the extent to which the ID length can be reduced.
 
+## Where is all ClojureScript?
+
+The world changes, and so does this calculator. It was rewritten in TypeScript, but the UI stayed the same. The ClojureScript implementation now lives in the [`cljs-implementation`](https://github.com/zelark/nano-id-cc/tree/cljs-implementation) branch and is no longer developed.
+
 ## Setup
 
 First, you need to have [Node.js](https://nodejs.org/) 22 or newer installed.
